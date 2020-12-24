@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="zend_framework" default="build" basedir=".">
+
+    <!-- main build target that executes a sub-targets -->
+    <target name="build" depends="svn-update,php-documentor,php-codesniffer,phpunit"/>
+
+    <!-- update the local working copy of the project -->
+    <target name="svn-update">
+        <exec executable="svn" dir="${basedir}/source">
+            <arg line="up"/>
+        </exec>
+    </target>
+
+    <!-- have phpDocumentor generate API documentation -->
+    <target name="php-documentor">
+        <exec executable="phpdoc">
+            <arg line="-ct 
+                        -ue
+                        -t ${basedir}/build/api
+                        -tb /Users/dirk/Sites/phpdoc/phpUnderControl/data/phpdoc
+                        -o HTML:Phpuc:phpuc
+                        -d ${basedir}/source/library/Zend"/>
+        </exec>
+    </target>
+
+    <!-- validate against Zend coding style using PHP_CodeSniffer  -->
+    <target name="php-codesniffer">
+        <exec executable="phpcs" dir="${basedir}/source/library" output="${basedir}/build/logs/checkstyle.xml">
+            <arg line="--report=checkstyle
+                        --standard=Zend Zend"/>
+        </exec>
+    </target>
+
+    <!-- run unit test suite using PHPUnit -->
+    <target name="phpunit">
+        <exec executable="phpunit" dir="${basedir}/source" failonerror="on">
+            <arg line="--log-xml ${basedir}/build/logs/phpunit.xml
+                        --log-pmd ${basedir}/build/logs/phpunit.pmd.xml
+                        --log-metrics ${basedir}/build/logs/phpunit.metrics.xml
+                        --coverage-xml ${basedir}/build/logs/phpunit.coverage.xml
+                        --coverage-html ${basedir}/build/coverage
+                        phpucAllTests tests/Zend/AllTests.php"/>
+        </exec>
+        <!--phpucAllTests tests/   Zend/Acl   AAllTests.php"/-->
+    </target>
+
+</project>

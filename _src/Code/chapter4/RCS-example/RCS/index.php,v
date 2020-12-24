@@ -1,0 +1,51 @@
+head	1.2;
+access;
+symbols;
+locks
+	dirk:1.2; strict;
+comment	@# @;
+
+
+1.2
+date	2009.05.14.23.17.50;	author dirk;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2009.05.14.23.14.29;	author dirk;	state Exp;
+branches;
+next	;
+
+
+desc
+@Landing first version of bootstrap file.
+@
+
+
+1.2
+log
+@Fixed controller initialization.
+@
+text
+@<?php
+
+// require global initializtion file that sets up environment
+require_once 'private/includes/global_init.php';
+
+// initializing controller for MVC architecture
+$controller->dispatch();
+
+?>
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d6 2
+a7 2
+// kick things off
+$registry->controller->dispatch();
+@

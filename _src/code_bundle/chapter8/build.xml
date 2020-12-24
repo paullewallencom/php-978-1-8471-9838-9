@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+
+<project name="waferthin.com" description="Targets for maintaining and deploying the waferthin.com web site." default="deploy">
+    
+    <!-- initialize timestamp that will be used in naming of various files & directories -->
+    <tstamp/>
+
+    <target name="deploy" depends="get-env,create-skeleton,svn-export,stamp-config,disp-maint,backup-db,deploy-db,publish-site" description="Deploy the site to the web server and perform necessary build and upgrade tasks.">
+    </target>
+
+    <target name="get-env" description="get the environment for an action">
+        <!-- has the environment been set already? -->
+        <if>
+            <not>
+                <isset property="environment" />
+            </not>
+            <then>
+                <!-- prompt the user to select from a list of supported environments -->
+                   <input propertyname="environment" validargs="dev,test,prod" promptChar=":">Enter environment </input>
+            </then>
+        </if>
+
+        <!-- make sure the properties file for the environment exists -->
+        <available file="${environment}.properties" property="env_prop_exists" type="file" />
+        <if>
+            <equals arg1="${env_prop_exists}" arg2="true" />
+            <then>
+                <!-- parse the properties files -->
+                <property file="${environment}.properties"/>
+            </then>
+            <else>
+                <!-- die with an error message -->
+                <fail message="No properties file for selected environment exists (${environment}.properties)" />
+            </else>
+        </if>
+    </target>
+
+    <!-- create directories; no existing ones will be overridden -->
+    <target name="create-skeleton" description="Create the basic directory structure for the site.">
+        <mkdir dir="${site.home}" />
+        <mkdir dir="${site.home}/build" />
+        <mkdir dir="${site.home}/backups" />
+        <mkdir dir="${site.home}/logs" />
+        <mkdir dir="${site.home}/tmp" />
+    </target>
+
+    <target name="svn-export" description="Export the site's files from subversion to the local target directory.">
+
+        <!-- construct proper Subversion URL -->
+        <property name="svn.url" value="${svn.proto}${svn.fqdn}${svn.repo}${svn.project}" override="true" />
+
+        <!-- was the subversion password given in the properties file? -->
+        <if>
+            <not>
+                <isset property="svn.password" />
+            </not>
+            <then>
+                <!-- prompt the user for the subversion password -->
+                <input propertyname="svn.password" promptChar=":">Enter password for user ${svn.user} to get project ${svn.project} from Subversion repository ${svn.fqdn}${svn.repo}</input>
+            </then>
+        </if>
+
+        <!-- checkout project for development -->
+        <if>
+            <equals arg1="${environment}" arg2="dev" />
+            <then>
+                <echo>Beginning svn checkout ...</echo>
+                <svncheckout svnpath="${svn.bin}"
+                    repositoryurl="${svn.url}"
+                    todir="${site.root}.${DSTAMP}${TSTAMP}"
+                    username="${svn.user}"
+                    password="${svn.password}" />
+            </then>
+            <!-- export project for deployment -->
+            <else>
+                <echo>Beginning svn export ...</echo>
+                <svnexport svnpath="${svn.bin}"
+                    repositoryurl="${svn.url}"
+                    todir="${site.root}.${DSTAMP}${TSTAMP}"
+                    username="${svn.user}"
+                    password="${svn.password}" />
+            </else>
+        </if>
+    </target>
+
+    <target name="deploy-dev" description="Deploy the site to the development environment.">
+        <property name="environment" value="dev" override="true" />
+        <phingcall target="deploy" />
+    </target>
+
+    <target name="deploy-prod" description="Deploy the site to the production environment.">
+        <property name="environment" value="prod" override="true" />
+        <phingcall target="deploy" />
+    </target>
+
+    <target name="deploy-test" description="Deploy the site to the test environment.">
+        <property name="environment" value="test" override="true" />
+        <phingcall target="deploy" />
+    </target>
+
+    <target name="disp-maint" description="Export the site's files from subversion to the local target directory.">
+        <!-- check whether there already is a .htaccess file -->
+        <available file="${site.root}/htdocs/.htaccess" property="htaccess_exists" type="file" />
+        <if>
+            <equals arg1="${htaccess_exists}" arg2="true" />
+            <then>
+                <!-- .htaccess file exists; move/rename it -->
+                <move file="${site.root}/htdocs/.htaccess"
+                    tofile="${site.home}/htdocs/.htaccess.bck"
+                    overwrite="false" />
+            </then>
+        </if>
+        
+        <!-- new .htaccess file for maintenance screen -->
+        <echo file="${site.root}/htdocs/.htaccess" append="false">
+Options +FollowSymlinks
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !/maintenance.html$
+RewriteCond %{REMOTE_HOST} !^127\.0\.0\.1
+RewriteRule $ /maintenance.html [R=302,L]
+        </echo>
+    </target>
+    
+    <target name="backup-db" description="Backup the database before upgrade.">
+        <!-- was the database password given in the properties file? -->
+        <if>
+            <not>
+                <isset property="db.password" />
+            </not>
+            <then>
+                <!-- prompt the user for the database password -->
+                <input propertyname="db.password" promptChar=":">Enter password for user ${db.user} for database ${db.name}</input>
+            </then>
+        </if>
+        
+        <!-- execute external command mysqldump to backup database -->
+        <exec command="${extern.mysqldump} --quick --password=${db.password} --user=${db.user} ${db.name} > ${db.name}.${DSTAMP}${TSTAMP}.sql"
+            dir="${db.backup.dir}"
+            escape="false" />
+        
+        <!-- compress the DB dump file -->
+        <zip destfile="${db.backup.dir}/${db.name}.${DSTAMP}${TSTAMP}.sql.zip">
+            <fileset dir="${db.backup.dir}">
+                <include name="${db.name}.${DSTAMP}${TSTAMP}.sql" />
+            </fileset>
+        </zip>
+        <!-- delete the original DB dump file to save space -->
+        <delete file="${db.backup.dir}/${db.name}.${DSTAMP}${TSTAMP}.sql" />
+    </target>
+    
+    <target name="stamp-config" description="Populates the Config.php class with config properties.">
+        <copy todir="${site.root}.${DSTAMP}${TSTAMP}/includes/classes">
+          <filterchain>
+            <expandproperties />
+          </filterchain>
+
+          <fileset dir="${site.root}.${DSTAMP}${TSTAMP}/config/templates">
+            <include name="Config.php" />
+          </fileset>
+        </copy>
+    </target>
+
+    <target name="deploy-db" description="Runs the SQL migrations to update the DB schema and data.">
+        <!-- load the dbdeploy task -->
+        <taskdef name="dbdeploy" classname="phing.tasks.ext.dbdeploy.DbDeployTask"/>
+
+         <!-- generate SQL to upgrade the DB to the most recent migration -->
+        <dbdeploy url="mysql:host=${db.fqdn};dbname=${db.name}"
+            userid="${db.user}"
+            password="${db.password}"
+            dir="${site.root}.${DSTAMP}${TSTAMP}/db/deltas"
+            outputfile="${site.home}/build/db-upgrade-${DSTAMP}${TSTAMP}.sql"
+            undooutputfile="${site.home}/build/db-downgrade-${DSTAMP}${TSTAMP}.sql" />
+
+        <!-- execute SQL using mysql command line client -->
+        <exec
+            command="${extern.mysql} -h${db.fqdn} -u${db.user} -p${db.password} ${db.name} &lt; ${site.home}/build/db-upgrade-${DSTAMP}${TSTAMP}.sql"
+            dir="${site.home}/build"
+            checkreturn="true" />
+    </target>
+
+    <target name="publish-site" description="Activates new version of site and restarts Apache for all changes to take effect.">
+        <!-- symlink in external library dependencies -->
+        <exec command="${extern.ln} -s ${zend_dir}"
+            dir="${site.root}.${DSTAMP}${TSTAMP}/includes/libraries"
+            escape="false" />
+        <!-- delete symlink to currently active copy of the site -->
+        <delete file="${site.root}" />
+        <!-- symlink to newest version of site -->
+        <exec command="${extern.ln} -s ${site.fqdn}.${DSTAMP}${TSTAMP} ${site.fqdn}"
+            dir="${site.home}"
+            escape="false" />
+        <!-- restart the Apache web server gracefully for all changes to take effect: we are live now!!! -->
+        <exec command="${extern.sudo} ${extern.apachectl} graceful" escape="false" />
+    </target>
+
+</project>

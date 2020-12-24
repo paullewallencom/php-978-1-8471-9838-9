@@ -1,0 +1,14 @@
+<?php
+
+foreach ($this->message as $message) {
+	echo "<strong>$message</strong><br />\n";
+}
+
+?>
+<form action="/users/login" method="POST">
+	Login: <input type="text" name="email" value="<?php echo $this->params['email']; ?>" size="20" maxlength="30" /><br />
+	Password: <input type="password" name="password" value="" size="20" maxlength="30" /><br />
+	<input type="submit" name="Submit" value="Submit" />
+</form>
+
+<p>If you don't have an account yet, you can <a href="/users/signup">sign up here</a>.</p>

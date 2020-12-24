@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  line-height: 1.4em;
+  font-size: small;
+}
+
+div#header {
+  padding: 2%;
+  text-align: center;
+  background-color: #fefffe;
+  margin-bottom: 10px;
+}
+
+div#footer {
+  padding: 2%;
+  text-align: center;
+  clear: both;
+}
+
+div#maincontent {
+  padding: 2%;
+  text-align: justify;
+  margin-left: 24%;
+}
+
+div#navigation {
+  padding: 2%;
+  float: left;
+  text-align: right;
+  width: 20%;
+}

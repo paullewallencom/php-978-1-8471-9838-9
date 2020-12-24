@@ -1,0 +1,13 @@
+<?xml version='1.0' standalone='yes'?>
+<settings>
+    <application>
+        <name>Converter</name>
+        <homedir>/var/www/converter</homedir>
+    </application>
+    <logging>
+        <dir>logs</dir>
+        <file>debug.out</file>
+        <level>3</level>
+        <type>text</type>
+    </logging>
+</settings>

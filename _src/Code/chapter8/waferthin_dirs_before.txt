@@ -1,0 +1,47 @@
+waferthin.com
+|-- clients
+|   |-- images
+|   |   |-- client1
+|   |   |-- client2
+|   |   `-- waferthin
+|   `-- invoices
+|       |-- client1
+|       |-- client2
+|       `-- waferthin
+|-- htdocs
+|   |-- admin
+|   |   `-- editor
+|   |-- cgi-bin
+|   |-- clients
+|   |-- images
+|   |-- js
+|   |   `-- qforms
+|   |-- mail
+|   |-- mantis -> mantis-1.1.1
+|   |-- mantis-1.1.1
+|   |   |-- api
+|   |   |-- core
+|   |   |-- css
+|   |   |-- doc
+|   |   |-- graphs
+|   |   |-- images
+|   |   |-- javascript
+|   |   `-- lang
+|   |-- overlib
+|   |   `-- Mini
+|   |-- stats
+|   `-- suspended.page
+|-- includes
+|   |-- classes
+|   `-- libraries
+|       |-- Smarty
+|       `-- Zend
+|-- logs
+`-- smarty
+    |-- cache
+    |-- configs
+    |-- plugins
+    |-- templates
+    |   |-- admin
+    |   `-- clients
+    `-- templates_c

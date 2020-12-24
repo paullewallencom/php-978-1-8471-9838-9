@@ -1,0 +1,55 @@
+#!/usr/local/apache2/php/bin/php
+<?php
+
+// class for command line parsing
+require_once('includes/classes/Cli/Options.php');
+
+// path to local svnlook executable
+define('SVNLOOK', '/usr/local/bin/svnlook');
+
+// path to local PHP_CodeSniffer pre-commit hook script
+define('PHPCSPC', '/usr/local/apache2/php/bin/scripts/phpcs-svn-pre-commit');
+
+// get object reference and parse current command line
+$options = Cli_Options::getInstance();
+
+// make sure we were given the two arguments we need to continue
+if (count($options->getArguments()) < 2) {
+    fwrite(STDERR, "Error: " . $options->getScriptName() . " requires two parameters.");
+    exit(1);
+}
+
+// get repository and transaction passed in from
+// Subversionas as command line arguemtns
+list($repos, $txn) = $options->getArguments();
+
+// get latest log message
+exec(SVNLOOK . " log -t '$txn' '$repos'", $svnlookOutput);
+
+if (is_array($svnlookOutput)) {
+    $svnlookOutput = trim(implode("\n", $svnlookOutput));
+}
+
+// make sure log message is not empty
+if (empty($svnlookOutput)) {
+    fwrite(STDERR, "Error: log message is required.");
+    exit(1);
+}
+
+// see if PHP_CodeSniffer ok's our code
+exec(PHPCSPC . " --standard=Zend --tab-width=4 '$repos' -t '$txn'", $phpcsOutput, $phpcsReturnValue);
+
+if (is_array($phpcsOutput)) {
+    $phpcsOutput = trim(implode("\n", $phpcsOutput));
+}
+
+// did PHP_CodeSniffer return an error?
+if ($phpcsReturnValue == 1) {
+    fwrite(STDERR, "phpcsOutput: $phpcsOutput");
+    exit(1);
+}
+
+// everthing went fine
+exit(0);
+
+?>

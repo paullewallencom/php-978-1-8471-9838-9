@@ -1,0 +1,19 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/style.css"  />
+        <?php echo $this->headTitle() ?>
+        <?php echo $this->headScript() ?>
+        <?php echo $this->headStyle() ?>
+    </head>
+    <body>
+        <?php echo $this->render('header.phtml') ?>
+        <?php echo $this->render('navigation.phtml') ?>
+
+        <div id="maincontent">
+            <?php echo $this->layout()->content ?>
+        </div>
+
+        <?php echo $this->render('footer.phtml') ?>
+    </body>
+</html>

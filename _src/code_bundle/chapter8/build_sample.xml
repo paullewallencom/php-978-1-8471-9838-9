@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<project name="projectName" description="Optional description of the build file." default="defaultTargetName">
+    <property name="someGlobalProperty" value="value" override="true" />
+    <type>
+        <!-- global type definition -->
+    </type>
+
+    <target name="defaultTargetName" depends="supportingTarget" description="Describe the default task here.">
+        <property name="aLocalProperty" value="someValue" override="true" />
+        <type>
+            <!-- local type definition -->
+        </type>
+        
+        <task>
+            <!-- task definition -->
+        </task>
+        <!-- more tasks (optional) -->
+    </target>
+
+    <target name="supportingTarget" description="Describe the supporting target here.">
+        <task>
+            <!-- task definition -->
+        </task>
+        <!-- more tasks (optional) -->
+    </target>
+</project>

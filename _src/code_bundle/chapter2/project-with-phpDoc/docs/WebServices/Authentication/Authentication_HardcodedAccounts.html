@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Authentication_HardcodedAccounts</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class Authentication_HardcodedAccounts</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description"><em>Authentication_HardcodedAccounts</em> class</p>
+<p class="description"><p>This class implements the login method needed to handle  actual user authentication. It extends <em>Authentication</em>  and implements the <em>Accountable</em> interface.</p></p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Dirk Merkel &lt;<a href="mailto:dirk@waferthin.com">dirk@waferthin.com</a>&gt;</li>
+				<li><span class="field">version:</span> 0.6</li>
+				<li><span class="field">see:</span> <a href="../../WebServices/Authentication/Authentication.html">Authentication</a></li>
+				<li><span class="field">since:</span> r14</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_classes---Authentication---HardcodedAccounts.php.html">/classes/Authentication/HardcodedAccounts.php</a> (line <span class="field"><a href="../../__filesource/fsource_WebServices_Authentication_classesAuthenticationHardcodedAccounts.php.html#a23">23</a></span>)
+		</p>
+		
+				
+		<pre><a href="../../WebServices/Authentication/Authentication.html">Authentication</a>
+   |
+   --Authentication_HardcodedAccounts</pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																				
+												<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+										()
+									</div>
+																<div class="method-definition">
+											<span class="method-result">boolean</span>
+										<a href="#login" title="details" class="method-name">login</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$user</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$password</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../../__filesource/fsource_WebServices_Authentication_classesAuthenticationHardcodedAccounts.php.html#a42">42</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Authentication_HardcodedAccounts constructor</p>
+<p class="description"><p>Instantiates a new <a href="../../WebServices/Accounts/Users.html">Users</a> object and stores a reference  in the users property.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../WebServices/Accounts/Users.html">Users</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			__construct
+		</span>
+				()
+			</div>
+	
+		
+			
+	</div>
+<a name="methodlogin" id="login"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">login</span> (line <span class="line-number"><a href="../../__filesource/fsource_WebServices_Authentication_classesAuthenticationHardcodedAccounts.php.html#a60">60</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">login method</p>
+<p class="description"><p>Uses the reference <a href="../../WebServices/Accounts/Users.html">Users</a> class to handle  user validation.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../WebServices/Accounts/Users.html">Users</a></li>
+				<li><span class="field">todo:</span> Decide which validate method to user instead of both</li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			login
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$user</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$password</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$user</span><span class="var-description">: account user name</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$password</span><span class="var-description">: account password</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../../WebServices/Authentication/Authentication.html#methodlogin">Authentication::login()</a></dt>
+						<dd>login method</dd>
+					</dl>
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../../WebServices/Authentication/Authentication.html">Authentication</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../../WebServices/Authentication/Authentication.html#methodgetAccount">Authentication::getAccount()</a></span><br>
+													<span class="method-name"><a href="../../WebServices/Authentication/Authentication.html#methodisLoggedIn">Authentication::isLoggedIn()</a></span><br>
+													<span class="method-name"><a href="../../WebServices/Authentication/Authentication.html#methodlogin">Authentication::login()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 17 Apr 2009 13:52:09 -0700 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.2</a>
+	</p>
+	</div></body>
+</html>

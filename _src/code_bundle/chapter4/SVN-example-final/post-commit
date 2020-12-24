@@ -1,0 +1,26 @@
+#!/usr/local/apache2/php/bin/php
+<?php
+
+// class for command line parsing
+require_once('includes/classes/Cli/Options.php');
+
+// path to local svnnotify executable
+define('SVN_NOTIFY', '/opt/local/bin/svnnotify');
+
+// get object reference and parse current command line
+$options = Cli_Options::getInstance();
+
+// make sure we were given the two arguments we need to continue
+if (count($options->getArguments()) < 2) {
+    fwrite(STDERR, "Error: " . $options->getScriptName() . " requires two parameters.");
+    exit(1);
+}
+
+// get repository and revision passed in from
+// Subversionas as command line arguemtns
+list($repos, $rev) = $options->getArguments();
+
+// send post-commit email(s)
+exec(SVN_NOTIFY . " --from dirk@waferthin.com --to dirk@waferthin.com --handler HTML::ColorDiff -d  --repos-path '$repos' --revision 160 '$rev'");
+
+?>

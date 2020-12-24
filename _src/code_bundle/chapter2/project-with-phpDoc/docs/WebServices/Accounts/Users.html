@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class Users</title>
+			<link rel="stylesheet" href="../../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class Users</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+															<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+					</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description"><em>Users</em> class</p>
+<p class="description"><p>This class contains a hard-coded list of user accounts  and the corresponding passwords. This is merely a development  stub and should be implemented with some sort of permanent  storage and security.</p></p>
+	<ul class="tags">
+				<li><span class="field">author:</span> Dirk Merkel &lt;<a href="mailto:dirk@waferthin.com">dirk@waferthin.com</a>&gt;</li>
+				<li><span class="field">version:</span> 0.6</li>
+				<li><span class="field">see:</span> <a href="../../WebServices/Authentication/Authentication.html">Authentication</a></li>
+				<li><span class="field">see:</span> <a href="../../WebServices/Authentication/Authentication_HardcodedAccounts.html">Authentication_HardcodedAccounts</a></li>
+				<li><span class="field">since:</span> r15</li>
+			</ul>
+		<p class="notes">
+			Located in <a class="field" href="_classes---Users.php.html">/classes/Users.php</a> (line <span class="field"><a href="../../__filesource/fsource_WebServices_Accounts_classesUsers.php.html#a25">25</a></span>)
+		</p>
+		
+				
+		<pre></pre>
+	
+			</div>
+</div>
+
+
+
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+												<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+												<div class="method-definition">
+					static 						<span class="method-result">boolean</span>
+										<a href="#validate" title="details" class="method-name">validate</a>
+											(<span class="var-type">string</span>&nbsp;<span class="var-name">$user</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$password</span>)
+									</div>
+																
+																				<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#__call" title="details" class="method-name">__call</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$name</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$arguments</span>)
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+																<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+<a name="methodvalidate" id="validate"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">static method validate</span> (line <span class="line-number"><a href="../../__filesource/fsource_WebServices_Accounts_classesUsers.php.html#a51">51</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">static validate method</p>
+<p class="description"><p>Given a user name and password, this method decides  whether the user has a valid account and whether  he/she supplied the correct password.</p></p>
+	<ul class="tags">
+				<li><span class="field">see:</span> <a href="../../WebServices/Authentication/Authentication_HardcodedAccounts.html#methodlogin">Authentication_HardcodedAccounts::login()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+	    static
+		<span class="method-result">boolean</span>
+		<span class="method-name">
+			validate
+		</span>
+					(<span class="var-type">string</span>&nbsp;<span class="var-name">$user</span>, <span class="var-type">string</span>&nbsp;<span class="var-name">$password</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$user</span><span class="var-description">: account user name</span>			</li>
+					<li>
+				<span class="var-type">string</span>
+				<span class="var-name">$password</span><span class="var-description">: account password</span>			</li>
+				</ul>
+		
+			
+	</div>
+
+<a name="method__call" id="__call"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">__call</span> (line <span class="line-number"><a href="../../__filesource/fsource_WebServices_Accounts_classesUsers.php.html#a69">69</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">magic __call method</p>
+<p class="description"><p>This method only implements a magic validate method  where the second part of the method name is the user's  account name.</p></p>
+	<ul class="tags">
+				<li><span class="field">staticvar:</span> array $accounts: used to validate users &amp; passwords</li>
+				<li><span class="field">method:</span> boolean validate<user>(): validate&lt;user&gt;(string $password) validate a user</li>
+				<li><span class="field">see:</span> <a href="../../WebServices/Authentication/Authentication_HardcodedAccounts.html#methodlogin">Authentication_HardcodedAccounts::login()</a></li>
+				<li><span class="field">see:</span> <a href="../../WebServices/Accounts/Users.html#methodvalidate">Users::validate()</a></li>
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			__call
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$name</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$arguments</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$name</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$arguments</span>			</li>
+				</ul>
+		
+			
+	</div>
+						
+		</div>
+	</div>
+
+
+	<p class="notes" id="credit">
+		Documentation generated on Fri, 17 Apr 2009 13:52:09 -0700 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.2</a>
+	</p>
+	</div></body>
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="zend_framework" description="Continuous Integration build script for Zend Framework" default="build">
+
+    <property name="basedir" value="." override="true"/>
+    
+    <!-- main build target that executes a sub-targets -->
+    <target name="build" depends="svn-update,php-documentor,php-codesniffer,phpunit"/>
+
+    <!-- update the local working copy of the project -->
+    <target name="svn-update">
+        <svnupdate
+           svnpath="/usr/local/bin/svn"
+           nocache="true"
+           todir="${basedir}/source"/>
+    </target>
+
+    <!-- have phpDocumentor generate API documentation -->
+    <target name="php-documentor">
+        <phpdoc title="API Documentation"
+          destdir="${basedir}/build/api"
+          sourcecode="no"
+          customtags="true"
+          undocumentedelements="true"
+          templatebase="/Users/dirk/Sites/phpdoc/phpUnderControl/data/phpdoc"
+          output="HTML:Phpuc:phpuc">
+           <fileset dir="${basedir}/source/library/Zend/">
+              <include name="*" />
+           </fileset>
+           <projdocfileset dir=".">
+              <include name="README" />
+              <include name="INSTALL" />
+              <include name="CHANGELOG" />
+           </projdocfileset>
+        </phpdoc>
+    </target>
+
+    <!-- validate Zend coding style using PHP_CodeSniffer  -->
+    <target name="php-codesniffer">
+        <exec dir="${basedir}/source/library"
+            command="/usr/local/apache2/php/bin/phpcs
+                --report-file=${basedir}/build/logs/checkstyle.xml
+                --report=checkstyle
+                --standard=Zend Zend"/>
+    </target>
+
+    <!-- run unit test suite using PHPUnit -->
+    <target name="phpunit">
+        <exec dir="${basedir}/source" checkreturn="on"
+            command="/usr/local/bin/phpunit
+                --log-xml ${basedir}/build/logs/phpunit.xml
+                --log-pmd ${basedir}/build/logs/phpunit.pmd.xml
+                --log-metrics ${basedir}/build/logs/phpunit.metrics.xml
+                --coverage-xml ${basedir}/build/logs/phpunit.coverage.xml
+                --coverage-html ${basedir}/build/coverage
+                phpucAllTests tests/Zend/AllTests.php"/>
+        <!--phpucAllTests tests/Zend/AllTests.php"/-->
+    </target>
+
+</project>

@@ -1,0 +1,57 @@
+dev.waferthin.com/
+|-- backups
+|   |-- waferthin.200909262254.sql.zip
+|   |-- waferthin.200909271853.sql.zip
+|   |-- waferthin.200909282241.sql.zip
+|   `-- waferthin.200909282342.sql.zip
+|-- build
+|   |-- db-downgrade-200909282259.sql
+|   |-- db-downgrade-200909282305.sql
+|   |-- db-downgrade-200909282306.sql
+|   |-- db-downgrade-200909282342.sql
+|   |-- db-upgrade-200909282259.sql
+|   |-- db-upgrade-200909282305.sql
+|   |-- db-upgrade-200909282306.sql
+|   `-- db-upgrade-200909282342.sql
+|-- dev.waferthin.com -> dev.waferthin.com.200909282342
+|-- dev.waferthin.com.200909262254
+|-- dev.waferthin.com.200909271853
+|-- dev.waferthin.com.200909282241
+|   |-- clients
+|   |   |-- images
+|   |   `-- invoices
+|   |-- config
+|   |   `-- templates
+|   |-- db
+|   |   `-- deltas
+|   |-- htdocs
+|   |   |-- admin
+|   |   |-- billing_policy.html
+|   |   |-- case_studies.html
+|   |   |-- clients
+|   |   |-- clients.html
+|   |   |-- contact_us.html
+|   |   |-- file.php
+|   |   |-- how_does_it_work.html
+|   |   |-- images
+|   |   |-- index.html
+|   |   |-- js
+|   |   |-- overlib
+|   |   |-- privacy_policy.html
+|   |   |-- services.html
+|   |   `-- style.css
+|   |-- includes
+|   |   |-- classes
+|   |   |-- global_init.php
+|   |   `-- libraries
+|   |-- smarty
+|   |   |-- cache
+|   |   |-- configs
+|   |   |-- plugins
+|   |   |-- templates
+|   |   `-- templates_c
+|   `-- webdav-passwdfile
+|-- logs
+|   |-- dev.waferthin.com-access_log
+|   `-- dev.waferthin.com-error_log
+`-- tmp

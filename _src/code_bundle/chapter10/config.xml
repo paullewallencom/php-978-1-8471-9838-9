@@ -1,0 +1,72 @@
+<cruisecontrol>
+    <project name="connectfour">
+
+        <listeners>
+            <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
+        </listeners>
+
+        <bootstrappers>
+            <antbootstrapper anthome="apache-ant-1.7.0" buildfile="projects/${project.name}/build.xml" target="clean" />
+        </bootstrappers>
+
+        <modificationset quietperiod="30">
+            <!-- touch any file in connectfour project to trigger a build -->
+            <filesystem folder="projects/${project.name}"/>
+        </modificationset>
+
+        <schedule interval="300">
+            <!-- ant anthome="apache-ant-1.7.0" buildfile="projects/${project.name}/build.xml"/-->
+			<phing phingscript="/usr/local/apache2/php/bin/phing"
+			         phingworkingdir="projects/${project.name}"
+			         buildfile="projects/${project.name}/build-phing.xml"
+			         uselogger="true"
+			         usedebug="false"/>
+        </schedule>
+
+        <log>
+            <merge dir="projects/${project.name}/target/test-results"/>
+        </log>
+
+        <publishers>
+            <onsuccess>
+                <artifactspublisher dest="artifacts/${project.name}" file="projects/${project.name}/target/${project.name}.jar"/>
+            </onsuccess>
+        </publishers>
+
+    </project>
+
+	<!-- start of Zend Framework project -->
+	<project name="zend_framework" buildafterfailed="false">
+
+		<!-- check for svn changes, but wait 3 min. until last
+		     commit before starting the build -->
+		<modificationset quietperiod="180">
+			<svn localWorkingCopy="projects/${project.name}/source/"/>
+		</modificationset>
+
+		<!-- execute an Ant script to build; check every hour for changes
+		     builds only happen if changes occurred -->
+		<schedule interval="3600">
+			<ant anthome="apache-ant-1.7.0" buildfile="projects/${project.name}/build.xml"/>
+		</schedule>
+		
+		<!-- write status data to text file -->
+		<listeners>
+			<currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
+		</listeners>
+		
+		<!-- merge status data from build log -->
+		<log dir="logs/${project.name}">
+			<merge dir="projects/${project.name}/build/logs/"/>
+		</log>
+
+		<!-- preserve data published / generated during build -->
+		<publishers>
+			<artifactspublisher dir="projects/${project.name}/build/api" dest="artifacts/${project.name}" subdirectory="api"/>
+			<artifactspublisher dir="projects/${project.name}/build/coverage" dest="artifacts/${project.name}" subdirectory="coverage"/>
+			<execute command="phpuc graph logs/${project.name} artifacts/${project.name}"/>
+		</publishers>
+		
+	</project>
+	
+</cruisecontrol>

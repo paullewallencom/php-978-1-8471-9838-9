@@ -1,0 +1,15 @@
+<?php
+
+foreach ($this->message as $message) {
+    echo "<strong>$message</strong><br />\n";
+}
+
+?>
+<form action="/users/signup" method="POST">
+    Email: <input type="text" name="email" value="<?php echo $this->params['email']; ?>" size="20" maxlength="30" /><br />
+    Password: <input type="password" name="password" value="<?php echo $this->params['password']; ?>" size="20" maxlength="30" /><br />
+    Password (again): <input type="password" name="password_again" value="<?php echo $this->params['password_again']; ?>" size="20" maxlength="30" /><br />
+    First Name: <input type="text" name="first_name" value="<?php echo $this->params['first_name']; ?>" size="20" maxlength="30" /><br />
+    Last Name: <input type="text" name="last_name" value="<?php echo $this->params['last_name']; ?>" size="20" maxlength="30" /><br />
+    <input type="submit" name="Submit" value="Submit" />
+</form>
